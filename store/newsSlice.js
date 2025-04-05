@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
-  const res = await fetch(`https://newsdata.io/api/1/news?apikey=${process.env.NEXT_PUBLIC_NEWSDATA_API_KEY}&category=business&language=en`);
+  const apiKey = process.env.NEXT_PUBLIC_NEWSDATA_API_KEY;
+  const res = await fetch(`https://newsdata.io/api/1/news?apikey=${apiKey}&q=crypto%20news`);
   const data = await res.json();
-  return data.results || []; // Assuming the API returns results in a 'results' array
+  return data.results || [];
 });
 
 const newsSlice = createSlice({
